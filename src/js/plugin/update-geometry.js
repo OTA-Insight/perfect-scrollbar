@@ -64,7 +64,7 @@ module.exports = function (element) {
 
   var existingRails;
   if (!element.contains(i.scrollbarXRail)) {
-    existingRails = dom.queryChildren(element, '.ps-scrollbar-x-rail');
+    existingRails = dom.queryChildren(element, '.ps__scrollbar-x-rail');
     if (existingRails.length > 0) {
       existingRails.forEach(function (rail) {
         dom.remove(rail);
@@ -73,7 +73,7 @@ module.exports = function (element) {
     dom.appendTo(i.scrollbarXRail, element);
   }
   if (!element.contains(i.scrollbarYRail)) {
-    existingRails = dom.queryChildren(element, '.ps-scrollbar-y-rail');
+    existingRails = dom.queryChildren(element, '.ps__scrollbar-y-rail');
     if (existingRails.length > 0) {
       existingRails.forEach(function (rail) {
         dom.remove(rail);
@@ -120,17 +120,17 @@ module.exports = function (element) {
   updateCss(element, i);
 
   if (i.scrollbarXActive) {
-    cls.add(element, 'ps-active-x');
+    cls.add(element, 'ps--active-x');
   } else {
-    cls.remove(element, 'ps-active-x');
+    cls.remove(element, 'ps--active-x');
     i.scrollbarXWidth = 0;
     i.scrollbarXLeft = 0;
     updateScroll(element, 'left', 0);
   }
   if (i.scrollbarYActive) {
-    cls.add(element, 'ps-active-y');
+    cls.add(element, 'ps--active-y');
   } else {
-    cls.remove(element, 'ps-active-y');
+    cls.remove(element, 'ps--active-y');
     i.scrollbarYHeight = 0;
     i.scrollbarYTop = 0;
     updateScroll(element, 'top', 0);
