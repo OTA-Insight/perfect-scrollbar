@@ -27,6 +27,19 @@ function bindMouseWheelHandler(element, i) {
         return !i.settings.wheelPropagation;
       }
     }
+
+    if (!i.scrollbarYActive && !i.scrollbarXActive){
+      return false;
+    }
+
+    if (!i.scrollbarYActive && ((scrollLeft === 0 && deltaX < 0) || (scrollLeft >= i.contentWidth - i.containerWidth && deltaX > 0))){
+      return !i.settings.wheelPropagation;
+    }
+
+    if (!i.scrollbarXActive && ((scrollTop === 0 && deltaY > 0) || (scrollTop >= i.contentHeight - i.containerHeight && deltaY < 0))){
+      return !i.settings.wheelPropagation;
+    }
+
     return true;
   }
 
@@ -125,7 +138,7 @@ function bindMouseWheelHandler(element, i) {
       }
       shouldPrevent = true;
     }
-
+    
     updateGeometry(element);
 
     shouldPrevent = (shouldPrevent || shouldPreventDefault(deltaX, deltaY));
