@@ -36,7 +36,8 @@ module.exports = function (element, axis, value) {
   if (axis === 'top' && value >= i.contentHeight - i.containerHeight) {
     // don't allow scroll past container
     value = i.contentHeight - i.containerHeight;
-    if (value - element.scrollTop <= 2) {
+    //Changed this to zero, would cause issues for slow scrolling
+    if (value - element.scrollTop <= 0) {
       // mitigates rounding errors on non-subpixel scroll values
       value = element.scrollTop;
     } else {
@@ -48,7 +49,8 @@ module.exports = function (element, axis, value) {
   if (axis === 'left' && value >= i.contentWidth - i.containerWidth) {
     // don't allow scroll past container
     value = i.contentWidth - i.containerWidth;
-    if (value - element.scrollLeft <= 2) {
+    //Changed this to zero, would cause issues for slow scrolling
+    if (value - element.scrollLeft <= 0) {
       // mitigates rounding errors on non-subpixel scroll values
       value = element.scrollLeft;
     } else {
