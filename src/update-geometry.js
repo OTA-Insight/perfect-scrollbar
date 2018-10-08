@@ -32,7 +32,13 @@ export default function(i) {
     i.containerWidth + i.settings.scrollXMarginOffset < i.contentWidth
   ) {
     i.scrollbarXActive = true;
-    i.railXWidth = i.containerWidth - i.railXMarginWidth;
+
+    if (i.settings.customXrailOffset) {
+      i.railXWidth = i.containerWidth - i.railXMarginWidth - i.settings.customXrailOffset;
+    } else {
+      i.railXWidth = i.containerWidth - i.railXMarginWidth;
+    }
+
     i.railXRatio = i.containerWidth / i.railXWidth;
     i.scrollbarXWidth = getThumbSize(
       i,
@@ -52,7 +58,13 @@ export default function(i) {
     i.containerHeight + i.settings.scrollYMarginOffset < i.contentHeight
   ) {
     i.scrollbarYActive = true;
-    i.railYHeight = i.containerHeight - i.railYMarginHeight;
+
+    if (i.settings.customYrailOffset) {
+      i.railYHeight = i.containerHeight - i.railYMarginHeight - i.settings.customYrailOffset;
+    } else {
+      i.railYHeight = i.containerHeight - i.railYMarginHeight;
+    }
+    
     i.railYRatio = i.containerHeight / i.railYHeight;
     i.scrollbarYHeight = getThumbSize(
       i,
@@ -115,7 +127,11 @@ function updateCss(element, i) {
       i.containerWidth -
       i.contentWidth;
   } else {
-    xRailOffset.left = element.scrollLeft;
+    if (i.settings.customXrailOffset) {
+      xRailOffset.left = element.scrollLeft + i.settings.customXrailOffset;
+    } else {
+      xRailOffset.left = element.scrollLeft;
+    }
   }
   if (i.isScrollbarXUsingBottom) {
     xRailOffset.bottom = i.scrollbarXBottom - roundedScrollTop;
@@ -124,7 +140,7 @@ function updateCss(element, i) {
   }
   CSS.set(i.scrollbarXRail, xRailOffset);
 
-  const yRailOffset = { top: roundedScrollTop, height: i.railYHeight };
+  const yRailOffset = {top: (i.settings.customYrailOffset) ? element.scrollTop + i.settings.customYrailOffset : element.scrollTop, height: i.railYHeight};
   if (i.isScrollbarYUsingRight) {
     if (i.isRtl) {
       yRailOffset.right =
